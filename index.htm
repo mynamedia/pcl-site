@@ -1,0 +1,530 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Panther City Live Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Photo booth, audio rental, DJ/MC, and custom event print in Fort Worth, Texas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: marquee-lit hero with a photo-booth print strip, then a ticket-style service grid, booking steps, and an inquiry builder. Dark-first. */
+:root{
+  --bg:#17122a; --surface:#211a3a; --surface-2:#2b2249; --line:#3a3060;
+  --fg:#f4efe7; --muted:#b8afca;
+  --gold:#ffb547; --gold-ink:#ffb547; --coral:#ff6b5a; --on-gold:#1b1424;
+  --paper:#fbf8f2; --paper-ink:#1b1424;
+  --display:"Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#f5f2fb; --surface:#ffffff; --surface-2:#ece6f7; --line:#d9d0ea;
+    --fg:#1d1631; --muted:#5c5373;
+    --gold:#ffb547; --gold-ink:#a35f00; --coral:#d4402f; --on-gold:#1b1424;
+    --paper:#ffffff; --paper-ink:#1b1424;
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#f5f2fb; --surface:#ffffff; --surface-2:#ece6f7; --line:#d9d0ea;
+  --fg:#1d1631; --muted:#5c5373;
+  --gold:#ffb547; --gold-ink:#a35f00; --coral:#d4402f; --on-gold:#1b1424;
+  --paper:#ffffff; --paper-ink:#1b1424;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.02;margin:0;letter-spacing:.005em}
+h2{font-size:clamp(2.3rem,5vw,3.4rem);font-weight:800;text-transform:uppercase}
+h3{font-size:1.7rem;font-weight:800;text-transform:uppercase}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink)}
+.lede{color:var(--muted);max-width:60ch}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.soon-bar{background:var(--gold);color:var(--on-gold);font-weight:600;font-size:.92rem;text-align:center}
+.soon-bar .wrap{padding-block:9px}
+.soon-bar b{font-family:var(--mono);font-weight:500;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;margin-right:10px}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.mark{font-family:var(--display);font-weight:900;font-size:1.55rem;text-transform:uppercase;text-decoration:none;letter-spacing:.02em;white-space:nowrap}
+.mark span{color:var(--gold-ink)}
+nav.links{display:flex;gap:22px;align-items:center;font-weight:500;font-size:.95rem}
+nav.links a{text-decoration:none;color:var(--muted)}
+nav.links a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 1rem var(--body);padding:12px 20px;border-radius:999px;border:2px solid transparent;text-decoration:none;cursor:pointer;transition:transform .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-gold{background:var(--gold);color:var(--on-gold)}
+.btn-ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn-sm{padding:8px 16px;font-size:.92rem}
+@media (max-width:760px){nav.links a:not(.btn){display:none}}
+
+/* hero */
+.hero{padding-block:56px 72px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(3.2rem,8.5vw,6.4rem);font-weight:900;text-transform:uppercase;line-height:.92}
+.hero h1 em{font-style:normal;color:var(--gold-ink)}
+.hero .lede{font-size:1.15rem;margin-top:22px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:30px;font-family:var(--mono);font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+.facts span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--coral);margin-right:8px;vertical-align:1px}
+
+/* photo strip */
+.strip-stage{display:flex;justify-content:center;position:relative}
+.strip{width:min(250px,100%);background:var(--paper);color:var(--paper-ink);padding:14px 14px 0;border-radius:3px;transform:rotate(3deg);box-shadow:0 30px 60px -20px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.06)}
+.frame{aspect-ratio:4/3;max-width:100%;margin-bottom:10px;border-radius:2px;display:grid;place-items:center;position:relative;overflow:hidden}
+.frame b{font-family:var(--display);font-weight:900;font-size:2.4rem;letter-spacing:.04em;color:#fff;text-transform:uppercase;mix-blend-mode:normal;text-shadow:0 2px 0 rgba(0,0,0,.18)}
+.f1{background:linear-gradient(135deg,#ff6b5a,#ff9e5a)}
+.f2{background:linear-gradient(135deg,#5b3fd1,#9b6bff)}
+.f3{background:linear-gradient(135deg,#e8a420,#ffcc5c)}
+.f4{background:linear-gradient(135deg,#1f8a7a,#3fc2a8)}
+.frame::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.35),transparent 55%)}
+.strip-foot{text-align:center;padding:8px 0 14px}
+.strip-foot strong{display:block;font-family:var(--display);font-weight:900;font-size:1.3rem;text-transform:uppercase;letter-spacing:.06em}
+.strip-foot small{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:#6b6280}
+.bulbs{position:absolute;inset:-18px -10px;pointer-events:none;display:none}
+@media (min-width:861px){.bulbs{display:block}}
+.bulb{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);opacity:.85;animation:twinkle 2.4s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.9}50%{opacity:.35}}
+@media (prefers-reduced-motion: reduce){.bulb{animation:none}.btn{transition:none}}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr}
+  .strip-stage{order:-1}
+  .strip{width:200px;transform:rotate(-2deg)}
+  .hero{padding-block:32px 56px}
+}
+
+/* sections */
+section{padding-block:72px}
+.band{background:var(--surface);border-block:1px solid var(--line)}
+.sec-head{display:grid;gap:12px;margin-bottom:40px;max-width:720px}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.services{grid-template-columns:1fr}}
+.ticket{background:var(--bg);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;min-width:0;position:relative}
+.ticket-main{padding:26px 26px 22px;display:grid;gap:12px;flex:1}
+.ticket .tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--coral)}
+.ticket p{color:var(--muted)}
+.ticket ul{margin:4px 0 0;padding-left:18px;color:var(--muted);display:grid;gap:4px}
+.ticket-stub{border-top:2px dashed var(--line);padding:16px 26px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px;position:relative}
+.ticket-stub::before,.ticket-stub::after{content:"";position:absolute;top:-12px;width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--line)}
+.ticket-stub::before{left:-12px;clip-path:inset(0 0 0 50%)}
+.ticket-stub::after{right:-12px;clip-path:inset(0 50% 0 0)}
+.price{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.price small{font-family:var(--body);font-weight:500;font-size:.9rem;color:var(--muted);margin-left:4px}
+.stub-note{font-size:.88rem;color:var(--muted)}
+
+/* rate table */
+.rates{margin-top:40px;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.rates table{width:100%;border-collapse:collapse;min-width:520px;font-variant-numeric:tabular-nums}
+.rates th,.rates td{text-align:left;padding:14px 20px;border-bottom:1px solid var(--line);vertical-align:top}
+.rates tr:last-child td{border-bottom:0}
+.rates th{font-family:var(--mono);font-weight:500;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rates td:last-child{font-weight:600;white-space:nowrap}
+.rates td small{display:block;color:var(--muted);font-weight:400}
+.fine{margin-top:14px;font-size:.88rem;color:var(--muted)}
+
+/* live music */
+.live{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+@media (max-width:860px){.live{grid-template-columns:1fr;gap:28px}}
+.live h2 em{font-style:normal;color:var(--coral)}
+.sets{display:grid;gap:14px}
+.set{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 18px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:14px}
+.set:last-child{border-bottom:0}
+.set time{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;color:var(--gold-ink);text-transform:uppercase;grid-row:span 2}
+.set strong{font-weight:600}
+.set p{color:var(--muted);font-size:.95rem}
+
+/* audiences */
+.aud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+@media (max-width:760px){.aud{grid-template-columns:1fr}}
+.aud div{display:grid;gap:8px;border-top:3px solid var(--gold);padding-top:18px;min-width:0}
+.aud p{color:var(--muted)}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;counter-reset:s}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+.steps li{counter-increment:s;display:grid;gap:8px;align-content:start;min-width:0}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:900;font-size:3rem;line-height:1;color:var(--gold-ink)}
+.steps h3{font-size:1.35rem}
+.steps p{color:var(--muted);font-size:.96rem}
+.note-row{margin-top:40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.note-row{grid-template-columns:1fr}}
+.note{background:var(--surface-2);border-radius:14px;padding:20px 22px;display:grid;gap:6px;min-width:0}
+.note strong{font-weight:600}
+.note p{color:var(--muted);font-size:.95rem}
+
+/* contact */
+.contact .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:start}
+@media (max-width:860px){.contact .wrap{grid-template-columns:1fr}}
+.email-box{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.email-box code{font-family:var(--mono);font-size:1rem;user-select:all;overflow-wrap:anywhere;flex:1 1 220px;min-width:0}
+.form{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:26px;display:grid;gap:16px;min-width:0}
+.form .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:520px){.form .row{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-size:.88rem;font-weight:600}
+input,select,textarea{font:inherit;font-size:1rem;font-weight:400;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:84px}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:8px}
+legend{font-size:.88rem;font-weight:600;margin-bottom:6px}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.chk{display:inline-flex;align-items:center;gap:8px;font-weight:500;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.chk input{width:auto;accent-color:var(--gold)}
+.output{display:grid;gap:10px}
+.output pre{margin:0;white-space:pre-wrap;font-family:var(--mono);font-size:.84rem;background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:14px;color:var(--fg);overflow-wrap:anywhere}
+.out-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.status{font-size:.88rem;color:var(--gold-ink);min-height:1.2em}
+
+footer{border-top:1px solid var(--line);padding-block:32px;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+</style>
+
+<div class="soon-bar" role="note"><div class="wrap"><b>Coming soon</b>We're not taking bookings yet. Here's a look at what's on the way.</div></div>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top">Panther City <span>Live</span></a>
+    <nav class="links" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#live">Live music</a>
+      <a href="#rates">Rates</a>
+      <a href="#booking">Booking</a>
+      <a class="btn btn-gold btn-sm" href="#contact">Get launch news</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Coming soon to Fort Worth, Texas</p>
+        <h1 style="margin-top:14px">Your event, <em>lit up</em> and on the record.</h1>
+        <p class="lede">Panther City Live is getting ready to bring the photo booth, the speakers, live music, and custom signage to proms, church events, and company parties across Fort Worth. Booking isn't open yet, but every package is below so you can start planning.</p>
+        <div class="hero-cta">
+          <a class="btn btn-gold" href="#services">See the packages</a>
+          <a class="btn btn-ghost" href="#contact">Get launch news</a>
+        </div>
+        <div class="facts">
+          <span>Photo booth from $450</span>
+          <span>Weekend events</span>
+          <span>Booking opens soon</span>
+        </div>
+      </div>
+      <div class="strip-stage" aria-hidden="true">
+        <div class="bulbs" id="bulbs"></div>
+        <div class="strip">
+          <div class="frame f1"><b>Smile</b></div>
+          <div class="frame f2"><b>Props</b></div>
+          <div class="frame f3"><b>Print</b></div>
+          <div class="frame f4"><b>Share</b></div>
+          <div class="strip-foot">
+            <strong>Panther City Live</strong>
+            <small>FORT WORTH · TX</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">What we bring</p>
+        <h2>Four ways to make it a night</h2>
+        <p class="lede">When booking opens, you can choose one service or put a few together. Every booking will get a written agreement and a clear quote before you pay anything.</p>
+      </div>
+      <div class="services">
+        <article class="ticket">
+          <div class="ticket-main">
+            <span class="tag">Launching first</span>
+            <h3>Photo booth</h3>
+            <p>An open-air booth with props, instant prints, and digital copies guests can share. Every event gets a custom print overlay with your name, date, or logo.</p>
+            <ul>
+              <li>Setup, attendant, and teardown included</li>
+              <li>Overlays for schools, companies, and celebrations</li>
+              <li>Online gallery after the event</li>
+            </ul>
+          </div>
+          <div class="ticket-stub">
+            <span class="price">$450<small>3 hours</small></span>
+            <span class="stub-note">4 hours: $500</span>
+          </div>
+        </article>
+
+        <article class="ticket">
+          <div class="ticket-main">
+            <span class="tag">Do it yourself</span>
+            <h3>Audio rental</h3>
+            <p>Pick up a ready-to-go sound kit in Fort Worth, run your event, and bring it back. Each kit is tested, labeled, and checked out with you in person.</p>
+            <ul>
+              <li><strong>Small Party:</strong> 1 speaker + 1 wireless mic</li>
+              <li><strong>Presentation:</strong> 2 speakers, 2 mics, mixer</li>
+              <li><strong>Ceremony:</strong> speakers + lapel mic</li>
+            </ul>
+          </div>
+          <div class="ticket-stub">
+            <span class="price" style="font-size:1.5rem">Day rates</span>
+            <span class="stub-note">Ask for current pricing</span>
+          </div>
+        </article>
+
+        <article class="ticket">
+          <div class="ticket-main">
+            <span class="tag">Music + mic</span>
+            <h3>DJ &amp; MC</h3>
+            <p>Music matched to your crowd, clean edits for school and church events, and an MC who keeps the program on time: introductions, announcements, and the big moments.</p>
+            <ul>
+              <li>Planning form so we play what you want</li>
+              <li>Backup gear at every event</li>
+              <li>Add the photo booth as a bundle</li>
+            </ul>
+          </div>
+          <div class="ticket-stub">
+            <span class="price">$600<small>4 hours</small></span>
+            <span class="stub-note">Parties &amp; school events</span>
+          </div>
+        </article>
+
+        <article class="ticket">
+          <div class="ticket-main">
+            <span class="tag">Designed in house</span>
+            <h3>Custom print &amp; recap videos</h3>
+            <p>Signage and keepsakes designed for your event and printed by trusted local vendors. A short recap video gives you something to post the next morning.</p>
+            <ul>
+              <li>Banners and step-and-repeat backdrops</li>
+              <li>Welcome signs, table cards, stickers, window decals</li>
+              <li>Event recap videos</li>
+            </ul>
+          </div>
+          <div class="ticket-stub">
+            <span class="price" style="font-size:1.5rem">Quoted per project</span>
+            <span class="stub-note">Add to any booking</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="live">
+    <div class="wrap live">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="eyebrow">Live music</p>
+        <h2>Add a live set from <em>Wilhyme</em></h2>
+        <p class="lede">Wilhyme makes Fort Worth-bred Americana with a rock backbone: big guitars, dusty open-road imagery, and songs that tell real stories. It's the original music project of Dave, the founder of Panther City Live. Choose an acoustic set for cocktail hour or dinner, or bring in the full band as a featured part of the night.</p>
+        <div class="hero-cta" style="margin-top:20px">
+          <a class="btn btn-gold" href="#contact">Get launch news</a>
+          <a class="btn btn-ghost" href="http://wilhyme.com/" target="_blank" rel="noopener">Hear Wilhyme</a>
+          <a class="btn btn-ghost" href="https://www.instagram.com/wilhymemusic/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <div class="sets">
+        <div class="set"><time>Acoustic</time><strong>Cocktail hour and dinner</strong><p>A stripped-down set at a volume that leaves room for conversation while guests arrive, mingle, and eat.</p></div>
+        <div class="set"><time>Full band</time><strong>Featured set</strong><p>Drums, bass, keys, and big electric guitars for the moment you want everyone watching the stage. Book at least 3–4 weeks ahead.</p></div>
+        <div class="set"><time>Add-on</time><strong>Pair it with DJ &amp; MC</strong><p>Live music early, then the DJ picks it up for the rest of the night with no gap.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="rates">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Rates</p>
+        <h2>Planned starting prices</h2>
+        <p class="lede">These are our planned launch rates. Your final quote will depend on the date, the location, and what you add on.</p>
+      </div>
+      <div class="rates">
+        <table>
+          <thead><tr><th>Service</th><th>What's included</th><th>From</th></tr></thead>
+          <tbody>
+            <tr><td>Photo booth</td><td>3 hours, attendant, props, prints, digital gallery</td><td>$450</td></tr>
+            <tr><td>Photo booth</td><td>4 hours, same as above</td><td>$500</td></tr>
+            <tr><td>DJ &amp; MC: party or school</td><td>4 hours, sound system, wireless mic</td><td>$600</td></tr>
+            <tr><td>DJ &amp; MC: corporate</td><td>4 hours, program MC, presentation mics</td><td>$900–$1,200</td></tr>
+            <tr><td>Extra hour</td><td>DJ &amp; MC</td><td>$150</td></tr>
+            <tr><td>Audio rental</td><td>Pickup and return in Fort Worth<small>Signed agreement, ID, and refundable damage deposit required</small></td><td>Ask</td></tr>
+            <tr><td>Wilhyme: acoustic</td><td>Cocktail hour or dinner set</td><td>Quote</td></tr>
+            <tr><td>Wilhyme: full band</td><td>Featured set<small>Book at least 3–4 weeks ahead</small></td><td>Quote</td></tr>
+            <tr><td>Print &amp; recap video</td><td>Banners, backdrops, signage, stickers, video</td><td>Quote</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine">Rates may change before booking opens. Once it does, a 50% deposit will hold your date.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Who we work with</p>
+        <h2>Built for Fort Worth events</h2>
+      </div>
+      <div class="aud">
+        <div><h3>Schools</h3><p>Prom, homecoming, PTA nights, and graduation parties. School-friendly music and booth overlays with your school colors.</p></div>
+        <div><h3>Churches &amp; community</h3><p>Fall festivals, youth nights, fundraisers, and neighborhood events. Clean playlists and simple sound for announcements.</p></div>
+        <div><h3>Companies</h3><p>Holiday parties, launches, and team events. Branded booth prints, step-and-repeats, and a recap video your team can share.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="booking">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">How booking will work</p>
+        <h2>From first email to last song</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Check your date</h3><p>Once booking opens, send your date, venue, event type, and rough guest count. Weekend dates will be limited.</p></li>
+        <li><h3>Get your quote</h3><p>You'll get a written quote and an agreement to sign online.</p></li>
+        <li><h3>Hold your date</h3><p>A 50% deposit will lock it in, with reminders sent automatically.</p></li>
+        <li><h3>Enjoy the night</h3><p>We arrive early, set up, run everything, and pack up when it's over.</p></li>
+      </ol>
+      <div class="note-row">
+        <div class="note"><strong>Need a photographer?</strong><p>We don't shoot events ourselves, but we'll connect you with a local photographer we trust.</p></div>
+        <div class="note"><strong>Renting gear?</strong><p>Audio rentals are pickup only for now. Bring a photo ID, and we'll check the kit out and back in with you.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Coming soon</p>
+        <h2 style="margin-top:12px">Be first to book</h2>
+        <p class="lede" style="margin-top:14px">We aren't booking yet. Send us your event idea and we'll let you know as soon as dates open. Fill in the form to write the message, then copy it into an email.</p>
+        <div class="email-box">
+          <code id="email">booking@panthercity.live</code>
+          <button class="btn btn-ghost btn-sm" type="button" id="copyEmail">Copy email</button>
+        </div>
+        <p class="status" id="emailStatus" role="status"></p>
+      </div>
+
+      <form class="form" id="inq" novalidate>
+        <div class="row">
+          <label for="name">Your name<input id="name" autocomplete="name" placeholder="Jordan Reyes"></label>
+          <label for="date">Event date<input id="date" type="date"></label>
+        </div>
+        <div class="row">
+          <label for="type">Event type
+            <select id="type">
+              <option>School event</option>
+              <option>Church or community event</option>
+              <option>Company party</option>
+              <option>Birthday or private party</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label for="guests">Guest count<input id="guests" type="number" min="1" inputmode="numeric" placeholder="150"></label>
+        </div>
+        <label for="venue">Venue or city<input id="venue" placeholder="e.g. school gym, Fort Worth"></label>
+        <fieldset>
+          <legend>Services</legend>
+          <div class="checks">
+            <label class="chk" for="s1"><input type="checkbox" id="s1" value="Photo booth" checked>Photo booth</label>
+            <label class="chk" for="s2"><input type="checkbox" id="s2" value="DJ & MC">DJ &amp; MC</label>
+            <label class="chk" for="s3"><input type="checkbox" id="s3" value="Audio rental">Audio rental</label>
+            <label class="chk" for="s4"><input type="checkbox" id="s4" value="Custom print or recap video">Print / video</label>
+            <label class="chk" for="s5"><input type="checkbox" id="s5" value="Live music (Wilhyme)">Live music</label>
+          </div>
+        </fieldset>
+        <label for="notes">Anything else<textarea id="notes" placeholder="Rough timing, school colors, questions about packages..."></textarea></label>
+
+        <div class="output">
+          <span class="eyebrow">Your message</span>
+          <pre id="msg"></pre>
+          <div class="out-actions">
+            <button class="btn btn-gold" type="button" id="copyMsg">Copy message</button>
+            <a class="btn btn-ghost" id="mailLink" href="mailto:booking@panthercity.live">Open in email app</a>
+          </div>
+          <p class="status" id="msgStatus" role="status"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Panther City Live · Fort Worth, Texas</span>
+    <span>booking@panthercity.live · Live music by <a href="http://wilhyme.com/" target="_blank" rel="noopener">Wilhyme</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const EMAIL = "booking@panthercity.live";
+  const $ = id => document.getElementById(id);
+
+  // marquee bulbs around the photo strip
+  const bulbs = $("bulbs");
+  if (bulbs) {
+    const n = 9;
+    for (let side = 0; side < 2; side++) {
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement("span");
+        b.className = "bulb";
+        b.style.top = (4 + i * (92 / (n - 1))) + "%";
+        b.style[side ? "right" : "left"] = "6%";
+        b.style.animationDelay = ((i + side) % 3) * 0.8 + "s";
+        bulbs.appendChild(b);
+      }
+    }
+  }
+
+  function fmtDate(v){
+    if (!v) return "(date TBD)";
+    const d = new Date(v + "T12:00:00");
+    return isNaN(d) ? v : d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+  }
+  function build(){
+    const services = ["s1","s2","s3","s4","s5"].map($).filter(c=>c.checked).map(c=>c.value);
+    const name = $("name").value.trim();
+    const lines = [
+      "Hi Panther City Live,",
+      "",
+      "I'm interested in booking when you open. Here's what I have in mind:",
+      "",
+      "Date: " + fmtDate($("date").value),
+      "Event type: " + $("type").value,
+      "Venue: " + ($("venue").value.trim() || "(TBD)"),
+      "Guests: " + ($("guests").value.trim() || "(not sure yet)"),
+      "Services: " + (services.length ? services.join(", ") : "(not sure yet)"),
+    ];
+    const notes = $("notes").value.trim();
+    if (notes) lines.push("", "Notes: " + notes);
+    lines.push("", "Thanks,", name || "");
+    const text = lines.join("\n").trimEnd();
+    $("msg").textContent = text;
+    const subject = "Early interest: " + fmtDate($("date").value);
+    $("mailLink").href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+    return text;
+  }
+  $("inq").addEventListener("input", build);
+  $("inq").addEventListener("change", build);
+  $("inq").addEventListener("submit", e => e.preventDefault());
+  build();
+
+  function selectText(el){
+    const r = document.createRange(); r.selectNodeContents(el);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  function copy(text, el, statusEl, okMsg){
+    const fallback = () => { selectText(el); statusEl.textContent = "Text selected. Press Ctrl+C or ⌘C to copy."; };
+    try {
+      navigator.clipboard.writeText(text).then(() => { statusEl.textContent = okMsg; }, fallback);
+    } catch (e) { fallback(); }
+  }
+  $("copyEmail").addEventListener("click", () => copy(EMAIL, $("email"), $("emailStatus"), "Email address copied."));
+  $("copyMsg").addEventListener("click", () => copy(build(), $("msg"), $("msgStatus"), "Message copied. Paste it into an email to " + EMAIL + "."));
+})();
+</script>
+
+</body></html>
